@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { useState,useRef } from "react";
+// a clock with the start ans the stop functionality
+const App = () => {
+  const [currentCount, setCurrentCount] = useState(0);
+  const timer = useRef();
 
-function App() {
-  const [count, setCount] = useState(0)
+  function startClock() {
+    let value = setInterval(() => {
+      setCurrentCount((count) => count + 1);
+    }, 1000);
+    timer.current = value;
+  }
 
+  function stopClock() {
+    console.log(timer.current);
+
+    clearInterval(timer.current)
+  }
   return (
-    <>
+    <div>
+      {currentCount}
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <button onClick={startClock}>Start</button>
+        <button onClick={stopClock}>Stop</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default App
+export default App;
